@@ -1,25 +1,33 @@
 package Project01;
 
-import javafx.beans.property.SimpleStringProperty;
-
 public class RuntimeRow
 {
-    private final SimpleStringProperty n;
-    private final SimpleStringProperty time;
+    private int n;
+    private String time;
 
-    public RuntimeRow(int n, double time)
+    public RuntimeRow(int n, String time)
     {
-        this.n = new SimpleStringProperty(String.valueOf(n));
-        this.time = new SimpleStringProperty(String.valueOf(time));
+        this.n = n;
+        this.time = time;
     }
 
-    public String getN()
+    public int getN()
     {
-        return n.get();
+        return n;
     }
 
     public String getTime()
     {
-        return time.get();
+        return time;
+    }
+
+    public void setTime(double time)
+    {
+        this.time = String.valueOf(time);
+    }
+
+    public void setTime(String time)
+    {
+        this.time = time;
     }
 }

@@ -8,8 +8,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class MainWindowController
 {
     // Tabs
-    @FXML private TabPane mainWindowTabPane;
-    @FXML private Tab homework01Tab;
     @FXML private TabPane project01TabPane;
     @FXML private Tab sortingAlgorithmsTab;
     @FXML private Tab matrixMultiplicationTab;
@@ -19,11 +17,14 @@ public class MainWindowController
 
     //Buttons
     @FXML private Button startSimulationButton;
+    @FXML private Button startMatrixSimulationButton;
 
     // TableViews
     @FXML private TableView<RuntimeRow> exchangeSortTableView;
     @FXML private TableView<RuntimeRow> mergeSortTableView;
     @FXML private TableView<RuntimeRow> quickSortTableView;
+    @FXML private TableView<RuntimeRow> classicalTableView;
+    @FXML private TableView<RuntimeRow> strassenTableView;
 
     // TableColumns
     @FXML private TableColumn<RuntimeRow, String> nExchangeSortTableColumn;
@@ -32,13 +33,44 @@ public class MainWindowController
     @FXML private TableColumn<RuntimeRow, String> timeMergeSortTableColumn;
     @FXML private TableColumn<RuntimeRow, String> nQuickSortTableColumn;
     @FXML private TableColumn<RuntimeRow, String> timeQuickSortTableColumn;
+    @FXML private TableColumn<RuntimeRow, String> nClassicalTableColumn;
+    @FXML private TableColumn<RuntimeRow, String> timeClassicalTableColumn;
+    @FXML private TableColumn<RuntimeRow, String> nStrassenTableColumn;
+    @FXML private TableColumn<RuntimeRow, String> timeStrassenTableColumn;
 
+    /**
+     * Initializes the tables and its columns.
+     */
     public void initialize()
     {
         nExchangeSortTableColumn.setCellValueFactory(
                 new PropertyValueFactory<>("n"));
 
         timeExchangeSortTableColumn.setCellValueFactory(
+                new PropertyValueFactory<>("time"));
+
+        nMergeSortTableColumn.setCellValueFactory(
+                new PropertyValueFactory<>("n"));
+
+        timeMergeSortTableColumn.setCellValueFactory(
+                new PropertyValueFactory<>("time"));
+
+        nQuickSortTableColumn.setCellValueFactory(
+                new PropertyValueFactory<>("n"));
+
+        timeQuickSortTableColumn.setCellValueFactory(
+                new PropertyValueFactory<>("time"));
+
+        nClassicalTableColumn.setCellValueFactory(
+                new PropertyValueFactory<>("n"));
+
+        timeClassicalTableColumn.setCellValueFactory(
+                new PropertyValueFactory<>("time"));
+
+        nStrassenTableColumn.setCellValueFactory(
+                new PropertyValueFactory<>("n"));
+
+        timeStrassenTableColumn.setCellValueFactory(
                 new PropertyValueFactory<>("time"));
     }
 
@@ -54,10 +86,19 @@ public class MainWindowController
         project01TabPane.getSelectionModel().select(matrixMultiplicationTab);
     }
 
-
+    /**EVENT HANDLERS**/
     public void onStartSimulationClicked()
     {
+        setStatus("Message", "Sorting Algorithms simulation started!");
+        startSimulationButton.setDisable(true);
         Main.startSortingAlgorithmsSimulation();
+    }
+
+    public void onStartMatrixSimulationClicked()
+    {
+        setStatus("Message", "Matrix Multiplication simulation started!");
+        startMatrixSimulationButton.setDisable(true);
+        Main.startMatrixMultiplicationSimulation();
     }
 
     /**
@@ -80,13 +121,17 @@ public class MainWindowController
             case "Quick Sort":
                 table = quickSortTableView;
                 break;
+            case "Classical":
+                table = classicalTableView;
+                break;
+            case "Strassen":
+                table = strassenTableView;
+                break;
         }
 
         table.setItems(data);
         table.refresh();
     }
-
-
 
     /**
      * Displays the status messages located in the status bar.
